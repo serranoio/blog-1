@@ -5,6 +5,57 @@
 		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		%sveltekit.head%
+		<style>
+			html {
+				font-size: 62.5%;
+			}
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+
+
+
+			:root {
+				--white:
+#ffffff;
+--gray98:
+#f7f8fa;
+--gray96:
+#f2f4f5;
+--gray92:
+#e1e6eb;
+--gray80:
+#c3cbd4;
+--gray60:
+#818d99;
+--gray45:
+#5c6773;
+--gray30:
+#3c444d;
+--gray25:
+#31373e;
+--gray22:
+#2b3033;
+--gray20:
+#171d21;
+--black:
+#000000;
+
+--primary:
+#af575a;
+--secondary:
+#62b3b2;
+
+--br: 10px;
+			}
+			body {
+					background-color: var(--gray92);
+					overflow-x: hidden;
+			}
+
+		</style>
 	</head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">%sveltekit.body%</div>
