@@ -1,9 +1,9 @@
 // Using ES modules (default)
 import PocketBase from 'pocketbase'
 import { Hero, HeroCollection } from './model';
-import { Route } from './api';
+import { Routes } from './api';
 
-export const pb = new PocketBase(Route);
+export const pb = new PocketBase(Routes);
 
 export const CreateAccount = async () => {
 
