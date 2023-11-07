@@ -43,6 +43,11 @@ console.log(pb.authStore.isValid)
     font-size: 3.2rem;
     color: var(--gray20);
     background-color: var(--gray80);
+}
+
+.nav.vertical {
+    
+    background-color: transparent;
    }
 
    .vertical .nav-list {

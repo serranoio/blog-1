@@ -18,7 +18,7 @@
             <div>facebook</div>
             <div>youtube</div>
             <div>instagram</div>
-    </div>
+        </div>
         <p>{name}</p>
         <p>number</p>
         <p>email</p>
@@ -32,7 +32,14 @@
     .socials {
         display: flex;
         gap: 2rem;
+        margin-bottom: .6rem;
+        line-height: 1.5;
     }
+
+    p {    
+        line-height: 1.5;
+    }
+
     footer {
         padding: 9.8rem 0;
         max-width: 130rem;

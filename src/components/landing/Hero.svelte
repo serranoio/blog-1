@@ -150,4 +150,9 @@ inputValue={description}>
         border-radius: var(--br);
     }
 
+    .hero-section {
+       overflow-y: hidden; 
+       overflow-x: hidden;
+    }
+
 </style>

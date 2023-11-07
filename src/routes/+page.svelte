@@ -20,9 +20,4 @@ import Hero from "../components/landing/Hero.svelte";
 <Footer name="David Serrano"/>
 
 <style>
-    
-
-
-
-    
 </style>
