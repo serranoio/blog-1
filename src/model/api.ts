@@ -1,1 +1,1 @@
-export const Routes = 'https://private-equity.fly.dev/';  // Hello, World!
+export const Routes = 'https://tableboard.fly.dev/';  // Hello, World!
