@@ -1,7 +1,9 @@
 <script>
+  import { Routes } from "../../model/api";
+
 
   import { pb } from "../../model/pocketbase";
-import {TABS} from  "../../model/util"
+import {SiteName, TABS} from  "../../model/util"
 
 export let position = "";
 
@@ -13,15 +15,15 @@ const logout = () => {
 }
 
 
-
-console.log(pb.authStore.isValid)
 </script>
 
 <nav class={`nav ${position}`}>
-    <h3 class="title">Soflare</h3>
+    <h3 class="title">{SiteName}</h3>
     <ul class="nav-list">
-        {#each TABS as tab}
-             <li><a href={`${tab}`}>{tab}</a></li>
+        {#each TABS as tabList}
+        {@const tab = tabList.toLowerCase()}
+        
+             <li><a href={`${tab}`}>{tabList}</a></li>
         {/each}
 
         {#if pb.authStore.isValid}
