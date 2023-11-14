@@ -10,7 +10,7 @@ export default defineConfig({
       exclude: ['./src/lib/Clock.svelte']
     }),
     svelte({
-      exclude: ['./src/App.svelte', './src/lib/Counter.svelte'],
+      exclude: ['./src/App.svelte', './src/lib/Counter.svelte',  './src/components/blog/*'],
       compilerOptions: {
         customElement: true,
       }

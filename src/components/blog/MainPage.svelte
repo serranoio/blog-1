@@ -1,45 +1,34 @@
-<script>
-
-
+<script lang="ts">
 const posts = ["1", "2", "3", "4", "5", "6"];
 import {pb} from "../../model/pocketbase"
-
 import "../modules/Drawer.svelte"
-
-let creatingPost = false;
-
-
 import "../modules/Button.svelte"
+import DrawerForm from "./DrawerForm.svelte";
 
-const openCreatePost = () => {
+let isOpened = false;
 
-    console.log("hello!")
+function switchOpen() {
+    isOpened = !isOpened;
+    console.log(isOpened)
 }
-
 
 </script>
 
 
+<DrawerForm isOpened={isOpened}></DrawerForm>
 
-<drawer-component>
-
-    <h3>Let Freedom Ring</h3>
-    <p>oij</p>
-
-</drawer-component>
 <section class="main-page">
-    <div class="container">
 
+    <div class="container">
         <div class="title-section">
             <h2>Welcome to the blog!</h2>
             <p style="margin-bottom: 1.2rem;">metadata</p>
             {#if pb.authStore.isValid}
-               <button-component on:click={openCreatePost}>Create Post</button-component>
+               <button-component on:click={switchOpen}>Create Post</button-component>
             {/if}
         </div>
         <navigation class="grid">
             {#each posts as post}
-
                 <figure class="article">
                     <div class="article-image-box">
 
@@ -48,14 +37,8 @@ const openCreatePost = () => {
                         <p>post</p>
                     </div>
                 </figure>
-                
             {/each}
-            
-
         </navigation>
-        
-        
-        
     </div>
 </section>
 
@@ -64,6 +47,54 @@ const openCreatePost = () => {
 
 <style>
 
+
+
+* {
+    box-sizing: border-box;
+
+}
+
+#editorjs-container {
+    /* overflow-y: scroll; */
+    height: 100%;
+    overflow-y: hidden;
+    /* flex-shrink: 0; */
+}
+
+.create-post-title {
+    font-size: 3.2rem;
+    margin-bottom: 1.2rem;
+}
+    
+
+.create-post-desc {
+    font-size: 2rem;
+}
+
+#editorjs {
+    /* height: 100%;  */
+    height:  46.5rem;
+    border: 1px solid var(--gray80);
+    overflow: auto;
+    overflow-x: hidden;
+    width: calc(50vw - 8rem);
+}
+
+form {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 11fr  1fr;
+}
+
+.label-box {
+    font-size: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+    margin-bottom: 2rem;
+    height: auto;
+    /* overflow-y: scroll; */
+}
     
     .title-section {
         margin-bottom: 4.2rem;

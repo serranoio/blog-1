@@ -3,12 +3,13 @@
 
 <script lang="ts">
  
-
+export let type = "button";
 
 </script>
 
 
-<button class="button-styles">
+<!-- @ts-ignore -->
+<button type={type} class="button-styles">
 <slot></slot>
 </button>
 
