@@ -12,10 +12,13 @@ export let records: any;
 
 let pic: string = "";
 
+if (records) {
+
     description = records[0]?.description
     title = records[0]?.title
     subtitle = records[0]?.subtitle
     pic = records[0]?.pic
+}
 </script>
 
 <section class="hero-section">

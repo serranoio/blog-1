@@ -1,21 +1,34 @@
-<script>
+<script lang="ts">
   import { onMount } from "svelte";
   import Footer from "../components/landing/Footer.svelte";
   import Hero from "../components/landing/Hero.svelte";
   import Nav from "../components/nav/Nav.svelte";
-  import { CreateAccount } from "../model/pocketbase";
+  import { CreateAccount, pb } from "../model/pocketbase";
+  import { ContactColection, HeroCollection } from "../model/model";
 
-  export let data;
-  console.log(data)
+  
+  let hero: any;
+  let contact: any;
 
-  CreateAccount()
+  onMount(() => {
 
+    CreateAccount()
+    
+    
+    
+    const fetchAll = async () => {
+      hero = await pb.collection(HeroCollection).getFullList();
+      contact = await pb.collection(ContactColection).getFullList();
+    }
+    
+    fetchAll()
+  })
 
 </script>
 
 <Nav position="horizontal"/>
-<Hero records={data.hero}/>
-<Footer records={data.contact} name="David Serrano"/>
+<Hero records={hero}/>
+<Footer records={contact} name="David Serrano"/>
 
 <style>
 </style>
