@@ -2,12 +2,12 @@
 import ImageTool from '@editorjs/image';
 import EditorJS from '@editorjs/editorjs';
 import { onMount } from "svelte";
-export let isOpened;
+export let isOpened: string;
 import Header from '@editorjs/header';
 import Paragraph from '@editorjs/paragraph';
   import { pb } from '../../model/pocketbase';
+  import { Routes } from '../../model/api';
 
-console.log(isOpened)
 
 // uploadByUrl()
 // send it to images collection
@@ -16,28 +16,25 @@ console.log(isOpened)
 
 
 const uploadByFile = async (file: any) => {
-
-    const formData = new FormData();
-
-    
-    console.log(file)
-    
-    formData.append("image", file);
+    const formData = new FormData(); 
+    formData.append("img", file);
 
     let uploadInfo;
     try {
-
-
         uploadInfo = await pb.collection("images").create(formData);
+        const route = Routes + `api/files/images/${uploadInfo?.id}/${uploadInfo.img}`
+        return {
+            success: 1,
+            file: {
+                url: route,
+            }
+        }
     } catch(err) {
+        return {
+            success: 0
+        }
 
-    } finally {
-
-        console.log(uploadInfo)
     }
-
-    
-
 }
 
 let editor: EditorJS;
@@ -68,6 +65,8 @@ const title = formData.get("title")!;
 const subtitle = formData.get("subtitle")!;
 const date = formData.get("date")!;
 const author = formData.get("author")!;
+const titleImg = formData.get("title-img");
+
 
 let outputData;
 
@@ -80,29 +79,42 @@ editor.save().then((outputData) => {
       subtitle: subtitle,
       date: date,
       author: author,
-      md: JSON.stringify(outputData)
+      md: JSON.stringify(outputData),
+      titleImg: titleImg
   }
   
-  console.log(formDataPost)
   
-  createPost(formDataPost);
+  createPost(formDataPost, e.target);
 }).catch((error) => {
   console.log('Saving failed: ', error)
-});
+}) 
 
 
 }
 
-
-
-const createPost = async (formData: any) => {
+const createPost = async (formData: any, form: HTMLFormElement) => {
     try {
         await pb.collection('blog').create(formData);
     } catch(e) {
 
     }
+
+    clearForm(form);
+
 }
 
+const clearForm = (form: HTMLFormElement) => {
+
+    form.querySelectorAll("input").forEach(input => {
+        input.value = "";
+    })
+
+    editor.clear()
+}
+
+
+// let show: string;
+$: show = isOpened ? "display: block;" : "display: none";
 
 </script>
 
@@ -111,6 +123,7 @@ const createPost = async (formData: any) => {
 
 <drawer-component isOpened={isOpened}>
 
+    <button class='close' style={show} on:click={() => {isOpened = !isOpened}}><span>x</span></button>
     <form on:submit={onSubmit}>
     <h3 class="create-post-title">Create a post!</h3>
     <p class="create-post-desc">Requirements: title, date, author, content</p>
@@ -119,6 +132,13 @@ const createPost = async (formData: any) => {
             Title
         </label>
         <input name="title"/>
+    </div>
+
+    <div class="label-box"> 
+        <label for="Title Image">
+            Title Image
+        </label>
+        <input name="title-img" type="file"/>
     </div>
 
     <div class="label-box"> 
@@ -171,6 +191,31 @@ const createPost = async (formData: any) => {
     font-size: 3.2rem;
     margin-bottom: 1.2rem;
 }
+
+.close {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translate(-100%, -50%);
+    font-size: 2rem;
+    padding: 1.2rem;
+    width: 50px;
+    height: 50px;
+    -webkit-clip-path: circle(50.0% at 100% 50%);
+    clip-path: circle(50.0% at 100% 50%);
+    cursor: pointer;
+    border: none;
+    background-color: var(--gray80);
+}
+
+.close span {
+    color: var(--gray60);
+    position: absolute;
+    right: 12.5%;
+    top: 50%;
+    transform: translate(0, -50%);
+    /* transform: translateX(80px); */
+}
     
 
 .create-post-desc {
@@ -179,7 +224,7 @@ const createPost = async (formData: any) => {
 
 #editorjs {
     /* height: 100%;  */
-    height:  46.5rem;
+    height:  36rem;
     border: 1px solid var(--gray80);
     overflow: auto;
     overflow-x: hidden;

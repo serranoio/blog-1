@@ -1,41 +1,33 @@
 <script>
-  import { Routes } from "../../model/api";
+import { Routes } from "../../model/api";
 
-
-  import { pb } from "../../model/pocketbase";
+import { pb } from "../../model/pocketbase";
 import {SiteName, TABS} from  "../../model/util"
 
 export let position = "";
-
 
 const logout = () => {
 
     pb.authStore.clear();
     location.reload();
 }
-
-
 </script>
 
 <nav class={`nav ${position}`}>
-    <h3 class="title">{SiteName}</h3>
+    <a href="/"><h3 class="title">{SiteName}</h3></a>
     <ul class="nav-list">
         {#each TABS as tabList}
         {@const tab = tabList.toLowerCase()}
-        
              <li><a href={`${tab}`}>{tabList}</a></li>
         {/each}
-
-        {#if pb.authStore.isValid}
-        <li><button class="logout" on:click={logout}>Logout</button></li>
-            
+        {#if pb.authStore.isValid && position === "horizontal"}
+        <li><a class="logout" href="/admin">Admin Page</a></li>      
+        <li><button class="logout" on:click={logout}>Logout</button></li>      
         {/if}
     </ul>
-
 </nav>
 
-<style>
-   
+<style>   
    .nav {
     height: 80px;
     padding: 0 3.2rem;
@@ -69,6 +61,8 @@ const logout = () => {
    .nav-list button {
     border: none;
    }
+
+   a,
    .nav-list a, .nav-list button {
     font-size: 3.2rem;
     /* border: none; */
@@ -78,6 +72,7 @@ const logout = () => {
     text-decoration: none;
     color: var(--gray20);
    }
+
    .nav-list button::after, .nav-list a::after {
        content: "";
     height: 2px;

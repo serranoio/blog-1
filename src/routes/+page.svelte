@@ -1,23 +1,18 @@
 <script>
   import { onMount } from "svelte";
   import Footer from "../components/landing/Footer.svelte";
-
-
-import Hero from "../components/landing/Hero.svelte";
+  import Hero from "../components/landing/Hero.svelte";
   import Nav from "../components/nav/Nav.svelte";
-  import { CreateAccount, pb } from "../model/pocketbase";
-  onMount(() => {
 
-    CreateAccount()
-  })
-
+  export let data;
+  console.log(data)
 
 
 </script>
 
 <Nav position="horizontal"/>
-<Hero/>
-<Footer name="David Serrano"/>
+<Hero records={data.hero}/>
+<Footer records={data.contact} name="David Serrano"/>
 
 <style>
 </style>

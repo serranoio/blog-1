@@ -1,9 +1,11 @@
 <script lang="ts">
-const posts = ["1", "2", "3", "4", "5", "6"];
+let posts: any = [];
 import {pb} from "../../model/pocketbase"
 import "../modules/Drawer.svelte"
 import "../modules/Button.svelte"
 import DrawerForm from "./DrawerForm.svelte";
+  import { onMount } from "svelte";
+  import { Routes } from "../../model/api";
 
 let isOpened = false;
 
@@ -12,43 +14,56 @@ function switchOpen() {
     console.log(isOpened)
 }
 
-</script>
+onMount(async () => {
+    try {
+        // you can also fetch all records at once via getFullList
+        posts = await pb.collection('blog').getFullList({
+            sort: '-created',
+        });
+        console.log(posts)
+        // console.log(records)
+    } catch (err) {
+        console.log(err)
+    }
+})
 
+let gtc = "grid-template-columns: "
+$: gridColumns = posts.length >= 6 ? `${gtc} repeat(6, 1fr)` : `${gtc} repeat(${posts.length}, 1fr)`;
+
+</script>
 
 <DrawerForm isOpened={isOpened}></DrawerForm>
 
 <section class="main-page">
-
     <div class="container">
         <div class="title-section">
-            <h2>Welcome to the blog!</h2>
-            <p style="margin-bottom: 1.2rem;">metadata</p>
+            <h2>Welcome to my blog!</h2>
             {#if pb.authStore.isValid}
                <button-component on:click={switchOpen}>Create Post</button-component>
             {/if}
         </div>
-        <navigation class="grid">
+        {#if posts.length === 0}
+            <p>Create&nbsp;your&nbsp;first&nbsp;post!</p>
+        {/if}
+        <navigation class="grid" style={gridColumns}>
+
             {#each posts as post}
                 <figure class="article">
-                    <div class="article-image-box">
-
-                    </div>
-                    <div class="article-text-box">
-                        <p>post</p>
-                    </div>
+                    <a href={`/blog/${post.title}`}>
+                        <div class="article-image-box">
+                            <img src={Routes + `api/files/blog/${post.id}/${post.titleImg}`}/>
+                        </div>
+                        <div class="article-text-box">
+                            <p>{post.title}</p>
+                        </div>
+                    </a>
                 </figure>
             {/each}
         </navigation>
     </div>
 </section>
 
-
-
-
 <style>
-
-
-
 * {
     box-sizing: border-box;
 
@@ -65,7 +80,15 @@ function switchOpen() {
     font-size: 3.2rem;
     margin-bottom: 1.2rem;
 }
-    
+
+.article {
+    cursor: pointer;
+    transition: all .2s;
+}
+
+.article:hover {
+    box-shadow: 0 2px 2px 2px rgba(0,0,0,.5);
+}
 
 .create-post-desc {
     font-size: 2rem;
@@ -78,6 +101,17 @@ function switchOpen() {
     overflow: auto;
     overflow-x: hidden;
     width: calc(50vw - 8rem);
+}
+
+h2 {
+    color: var(--gray22);
+    margin-bottom: 2.4rem;
+}
+
+p {
+    text-align: center;
+    color: var(--gray25);
+    
 }
 
 form {
@@ -96,14 +130,20 @@ form {
     /* overflow-y: scroll; */
 }
     
-    .title-section {
-        margin-bottom: 4.2rem;
-    }
-    .article-image-box {
-        background-color: green;
-        height: 75%;
-        box-shadow: 0 0 0 2px var(--gray20);
-        border-radius: var(--br);
+.title-section {
+    margin-bottom: 9.8rem;
+}
+
+.article-image-box {
+    height: 75%;
+    box-shadow: 0 0 0 2px var(--gray20);
+    border-radius: var(--br);
+    display: flex;
+    justify-content: center;
+}
+
+img {
+    height: 100%;
 }
 
 .container {
@@ -117,6 +157,7 @@ h2 {
 
     .main-page {
         padding: 9.8rem 0;
+        min-height: calc(100vh - 80px);
     }
 
     .grid {

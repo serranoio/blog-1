@@ -13,11 +13,12 @@
 
 </script>
 
-<aside class="drawer" style={cssStyles}>
-    <div class="inside">
-        <slot></slot>
-    </div>
-</aside>
+
+    <aside class="drawer" style={cssStyles}>
+        <div class="inside">
+            <slot></slot>
+        </div>
+    </aside>
 
 <style>
 
@@ -25,10 +26,11 @@
     box-sizing: border-box;
 }
 
+
 .drawer {
     height: 100vh;
-    width: 50vw;
     position: fixed;
+    width: 50vw;
     right: 0;
     top: 0;
     z-index: 99999;

@@ -1,6 +1,6 @@
 // Using ES modules (default)
 import PocketBase from 'pocketbase'
-import { Hero, HeroCollection } from './model';
+import { Contact, ContactColection, Hero, HeroCollection } from './model';
 import { Routes } from './api';
 
 export const pb = new PocketBase(Routes);
@@ -18,18 +18,15 @@ try {
     console.log("New Admin Created");
 
     // insert everything into the db now, then clear
-    pb.collection(HeroCollection).create(Hero)
+    await pb.collection(HeroCollection).create(Hero)
+    await pb.collection(ContactColection).create(Contact)
     console.log("Inserted All Initial")
     pb.authStore.clear();
     } catch(e) {
     // the request requires valid admin authorization to be set
-    // console.log(e)
+    console.log(e)
 }
-
-
-
 }
-
 
 export const Signin = async (email: string, password: string) => {
 

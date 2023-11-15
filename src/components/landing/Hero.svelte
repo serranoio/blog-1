@@ -1,50 +1,25 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+import { onMount } from "svelte";
 import "../modules/Text.svelte"
 import {pb} from "../../model/pocketbase"
-  import { HeroCollection } from "../../model/model";
+import { Description, HeroCollection, Subtitle, Title } from "../../model/model";
 
-let title = `
-Sup folks.
-`;
+let title = Title
+let description = Description
+let subtitle = Subtitle;
 
-let description = `
-Lorem ipsum dolor
-sit amet consectetur 
-adipisicing elit. Aut 
-pariatur modi aperiam
-quibusdam ad ut cumque 
-aliquid nulla nesciunt.
-Iusto impedit quidem 
-aperiam nam neque distinctio optio nisi debitis hic!
-`;
-let subtitle = "Nice to meet yall";
+export let records: any;
 
-let records: any;
+let pic: string = "";
 
-onMount(async () => {
-    try {
-    // you can also fetch all records at once via getFullList
-    records = await pb.collection(HeroCollection).getFullList();
-
-    description = records[0].description
-    title = records[0].title
-    subtitle = records[0].subtitle
-
-    } catch(e) {
-        console.log(e)
-    } finally {
-
-    }
-
-})
+    description = records[0]?.description
+    title = records[0]?.title
+    subtitle = records[0]?.subtitle
+    pic = records[0]?.pic
 </script>
 
 <section class="hero-section">
-
-<div class="container">
-
-    
+<div class="container"> 
     <div class="title-box">
         <input-box 
         class="title"
@@ -53,6 +28,7 @@ onMount(async () => {
         collection={HeroCollection}
         size="6" 
         mB="2.4" 
+        type="text"
         inputValue={title}>
     </input-box>
     <input-box 
@@ -60,7 +36,8 @@ onMount(async () => {
     records={records}
     column="subtitle"
     collection={HeroCollection}
-    size="3" 
+    size="3"
+    type="text" 
     mB="1.2" 
     inputValue={subtitle}>
 </input-box>
@@ -69,12 +46,20 @@ class="description"
 records={records}
 column="description"
 collection={HeroCollection}
-size="2.4" 
+size="2.4"
+type="text" 
 inputValue={description}>
     </input-box>
     </div>    
     <div class="hero-box">
-        <img src="./sup.jpg" alt="you"/>
+        <input-box
+        records={records}
+        column="pic"
+        collection={HeroCollection}
+        inputValue={pic}
+        type="file"
+        >
+    </input-box>
     </div>
     
     <div class="accent"></div>
