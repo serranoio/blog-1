@@ -3,9 +3,12 @@
   import Footer from "../components/landing/Footer.svelte";
   import Hero from "../components/landing/Hero.svelte";
   import Nav from "../components/nav/Nav.svelte";
+  import { CreateAccount } from "../model/pocketbase";
 
   export let data;
   console.log(data)
+
+  CreateAccount()
 
 
 </script>

@@ -6,7 +6,6 @@ import { ContactColection, HeroCollection } from '../model/model';
 
 /** @type {import('./$types').PageLoad} */
 export async function load() {
-    CreateAccount()
 
     const hero = await pb.collection(HeroCollection).getFullList();
     const contact = await pb.collection(ContactColection).getFullList();
