@@ -10,19 +10,19 @@
   let hero: any;
   let contact: any;
 
-  onMount(() => {
+  onMount(async () => {
 
     CreateAccount()
     
     
     
-    const fetchAll = async () => {
-      hero = await pb.collection(HeroCollection).getFullList();
-      contact = await pb.collection(ContactColection).getFullList();
-    }
-    
-    fetchAll()
+    hero = await pb.collection(HeroCollection).getFullList();
+    contact = await pb.collection(ContactColection).getFullList();
+
+    // fetchAll()
   })
+  
+
 
 </script>
 

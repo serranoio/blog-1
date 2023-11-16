@@ -5,7 +5,7 @@
     export let name = "";
     export let records: any;
 
-    let record = records ? records[0] : undefined
+    $: record = records ? records[0] : undefined
 
     $: socialsStyles = !pb.authStore.isAdmin ? `width: 25%` : `width: 100%`;
 </script>

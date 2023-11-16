@@ -26,12 +26,12 @@ export const Hero = {
 export const HeroCollection = "hero"
 
 export let ContactName = "David Serrano"
-export let Email = ""
-export let Facebook = ""
-export let Twitter = ""
-export let Instagram = ""
-export let Youtube = ""
-export let Github = ""
+export let Email = " "
+export let Facebook = " "
+export let Twitter = " "
+export let Instagram = " "
+export let Youtube = " "
+export let Github = " "
 
 export const Contact = {
     name: ContactName,
