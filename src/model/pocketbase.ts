@@ -16,16 +16,12 @@ try {
     });
     
     console.log("New Admin Created");
-
-    // insert everything into the db now, then clear
-    await pb.collection(HeroCollection).create(Hero)
-    await pb.collection(ContactColection).create(Contact)
-    console.log("Inserted All Initial")
+    
     pb.authStore.clear();
     } catch(e) {
     // the request requires valid admin authorization to be set
-    console.log(e)
-}
+    console.log('FAILED TO INSERT ALL', e)
+    }
 }
 
 export const Signin = async (email: string, password: string) => {

@@ -32,16 +32,10 @@ const onSubmit = async (e: any) => {
     
 }
 
-
-onMount(() => {
-    CreateAccount()
-    })
-
   </script>
   
   <Nav/>
   <section class="hero-section">
-  
   <div class="container">
   
 

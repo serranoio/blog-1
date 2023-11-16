@@ -11,10 +11,6 @@
   let contact: any;
 
   onMount(async () => {
-
-    CreateAccount()
-    
-    
     
     hero = await pb.collection(HeroCollection).getFullList();
     contact = await pb.collection(ContactColection).getFullList();
