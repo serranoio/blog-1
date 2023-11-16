@@ -41,7 +41,6 @@ if (!records) {
     records = [{id: ""}];
 }
 
-    
     const updateInput = async () => {
         if (!isEditing) return
         
@@ -55,13 +54,21 @@ if (!records) {
             formData.append(column, inputValue.length === 0 ? " " : inputValue)
         }
 
+        let updated;
+        try {
 
-        const updated = await pb.collection(collection)
-        .update(records[0].id, formData);
-
-        // now set inputValue to image title
-        if (type === "file") {
-            inputValue = updated.pic
+            updated = await pb.collection(collection)
+            .update(records[0].id, formData);
+            
+            // now set inputValue to image title
+            if (type === "file") {
+                inputValue = updated.pic
+            }
+            console.log("updated text")
+        } catch(err) {
+            
+            // console.log("updated text")
+            console.log("Could not update text", err)
         }
     }
 
