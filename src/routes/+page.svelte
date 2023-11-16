@@ -19,6 +19,8 @@
     hero = await pb.collection(HeroCollection).getFullList();
     contact = await pb.collection(ContactColection).getFullList();
 
+    console.log(contact)
+    console.log(hero)
     // fetchAll()
   })
   
@@ -28,7 +30,7 @@
 
 <Nav position="horizontal"/>
 <Hero records={hero}/>
-<Footer records={contact} name="David Serrano"/>
+<Footer records={contact}/>
 
 <style>
 </style>

@@ -50,8 +50,8 @@ if (!records) {
         if (type === "file") {
             formData.append(column, input.files![0])
         } else {
-            inputValue = input.value;
-            formData.append(column, inputValue.length === 0 ? " " : inputValue)
+            inputValue = input?.value;
+            formData.append(column, inputValue?.length === 0 ? " " : inputValue)
         }
 
         let updated;

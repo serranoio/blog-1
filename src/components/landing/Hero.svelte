@@ -4,21 +4,11 @@ import "../modules/Text.svelte"
 import {pb} from "../../model/pocketbase"
 import { Description, HeroCollection, Subtitle, Title } from "../../model/model";
 
-let title = Title
-let description = Description
-let subtitle = Subtitle;
-
 export let records: any;
 
-let pic: string = "";
+$: record = records ? records[0] : undefined;
 
-if (records) {
-
-    description = records[0]?.description
-    title = records[0]?.title
-    subtitle = records[0]?.subtitle
-    pic = records[0]?.pic
-}
+console.log(record)
 </script>
 
 <section class="hero-section">
@@ -32,7 +22,7 @@ if (records) {
         size="6" 
         mB="2.4" 
         type="text"
-        inputValue={title}>
+        inputValue={record?.title}>
     </input-box>
     <input-box 
     class="subtitle" 
@@ -42,7 +32,7 @@ if (records) {
     size="3"
     type="text" 
     mB="1.2" 
-    inputValue={subtitle}>
+    inputValue={record?.subtitle}>
 </input-box>
 <input-box 
 class="description" 
@@ -51,7 +41,7 @@ column="description"
 collection={HeroCollection}
 size="2.4"
 type="text" 
-inputValue={description}>
+inputValue={record?.description}>
     </input-box>
     </div>    
     <div class="hero-box">
@@ -59,7 +49,7 @@ inputValue={description}>
         records={records}
         column="pic"
         collection={HeroCollection}
-        inputValue={pic}
+        inputValue={record?.pic}
         type="file"
         >
     </input-box>

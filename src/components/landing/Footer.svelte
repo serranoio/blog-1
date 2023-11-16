@@ -2,12 +2,16 @@
   import { ContactColection } from "../../model/model";
   import { pb } from "../../model/pocketbase";
     import Nav from "../nav/Nav.svelte";
-    export let name = "";
+    
     export let records: any;
 
     $: record = records ? records[0] : undefined
 
     $: socialsStyles = !pb.authStore.isAdmin ? `width: 25%` : `width: 100%`;
+
+    console.log(record)
+
+
 </script>
 
 
