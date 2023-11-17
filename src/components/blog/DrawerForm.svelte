@@ -68,6 +68,7 @@ const author = formData.get("author")!;
 const titleImg = formData.get("title-img");
 
 
+
 let outputData;
 
 editor.save().then((outputData) => {
@@ -82,19 +83,17 @@ editor.save().then((outputData) => {
       md: JSON.stringify(outputData),
       titleImg: titleImg
   }
-  
-  
   createPost(formDataPost, e.target);
 }).catch((error) => {
   console.log('Saving failed: ', error)
 }) 
-
-
 }
 
 const createPost = async (formData: any, form: HTMLFormElement) => {
     try {
-        await pb.collection('blog').create(formData);
+        const record = await pb.collection('blog').create(formData);
+
+        window.location.href = `/blog/${record.title}`
     } catch(e) {
 
     }
@@ -111,69 +110,70 @@ const clearForm = (form: HTMLFormElement) => {
 
     editor.clear()
 }
-
-
 // let show: string;
 $: show = isOpened ? "display: block;" : "display: none";
 
 </script>
 
-
-
-
 <drawer-component isOpened={isOpened}>
-
     <button class='close' style={show} on:click={() => {isOpened = !isOpened}}><span>x</span></button>
     <form on:submit={onSubmit}>
     <h3 class="create-post-title">Create a post!</h3>
     <p class="create-post-desc">Requirements: title, date, author, content</p>
+
+<div class="label-box-grid">
+
     <div class="label-box"> 
         <label for="title">
             Title
         </label>
-        <input name="title"/>
+        <input name="title" required/>
     </div>
-
+    
     <div class="label-box"> 
         <label for="Title Image">
             Title Image
         </label>
-        <input name="title-img" type="file"/>
+        <input name="title-img" type="file" required/>
     </div>
-
-    <div class="label-box"> 
-        <label for="subtitle">
-            Subtitle
-        </label>
-        <input name="subtitle"/>
-    </div>
+    
     
     <div class="label-box"> 
         <label for="date">
             Date
         </label>
-        <input type="date" name="date"/>
+        <input type="date" name="date" required/>
     </div>
     
     <div class="label-box"> 
         <label for="author">
             Author
         </label>
-        <input name="author"/>
+        <input name="author" required/>
     </div>
     
+    <div class="label-box description"> 
+        <label for="subtitle">
+            Description
+        </label>
+        <input name="subtitle" required/>
+    </div>
+</div>
 
-        <div class="label-box">
-            <label>Content</label>
-            <div id="editorjs-container">
-                <div id="editorjs"></div>
-            </div>
+    <div class="label-box">
+        <label>Content</label>
+        <div id="editorjs-container">
+            <div id="editorjs"></div>
         </div>
-        <button class="button-styles" type="submit">Submit</button>
+    </div>
+
+
+
+    <button class="button-styles" type="submit">Submit</button>
 </form>
-    
-    
-    
+
+
+
 </drawer-component>
 
 
@@ -185,6 +185,38 @@ $: show = isOpened ? "display: block;" : "display: none";
     height: 100%;
     overflow-y: hidden;
     /* flex-shrink: 0; */
+}
+
+.label-box-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2.4rem;
+}
+
+
+h3 {
+    color: var(--gray22);
+}
+
+p {
+    color: var(--gray45);
+}
+
+label {
+    color: var(--gray30);
+}
+input {
+    color: var(--gray22);
+    background-color: var(--gray92);
+    border-radius: var(--br);
+    border: none;
+    box-shadow: 0 0 0 2px var(--gray22);
+    padding: .6rem;
+    font-size: 1.8rem;
+}
+
+.label-box.description {
+    grid-column: -1/1;
 }
 
 .create-post-title {
@@ -220,11 +252,12 @@ $: show = isOpened ? "display: block;" : "display: none";
 
 .create-post-desc {
     font-size: 2rem;
+    margin-bottom: 2rem;
 }
 
 #editorjs {
     /* height: 100%;  */
-    height:  36rem;
+    height:  44rem;
     border: 1px solid var(--gray80);
     overflow: auto;
     overflow-x: hidden;
@@ -245,8 +278,8 @@ $: show = isOpened ? "display: block;" : "display: none";
 
 form {
     height: 100%;
-    display: grid;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 11fr  1fr;
+    /* display: grid; */
+    /* grid-template-rows: 1fr 1fr 1fr 1fr 1fr 11fr  1fr; */
 }
 
 .label-box {

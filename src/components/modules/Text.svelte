@@ -96,11 +96,15 @@ if (!records) {
         `
     }
 
+    $: isAdminStyles = isAdmin ? "stretch-to-fit" : "";
+
+    $: editButtonStyles = !isEditing ? "start-editing" : "finish-editing"
+
 </script>
 
 {#if isEditing}
-<div style={inputContainerStyles}> 
-    <button class="edit-button" on:click={onClick}>-</button>
+<div style={inputContainerStyles} class={`${isAdminStyles}`}> 
+    <button class={`edit-button ${editButtonStyles}`} on:click={onClick}>Finish</button>
     {#if type === "file"}
     <input bind:this="{input}" type={type} style={fontSize}/>
     {:else}
@@ -117,7 +121,7 @@ if (!records) {
             <img class="pic" alt="hero-img" src={Routes + `api/files/${HeroCollection}/${records[0]?.id}/${inputValue}`}/>
             {/if}
         {#if isAdmin}
-        <button class="edit-button" on:click={onClick}>+</button>
+        <button class={`edit-button ${editButtonStyles}`}  on:click={onClick}>Change Image</button>
         {/if}                
     </div>
 
@@ -126,19 +130,19 @@ if (!records) {
     <p class="reset" style={pStyle}>
         {inputValue}
         {#if isAdmin}
-        <button class="edit-button" on:click={onClick}>+</button>
+        <button class={`edit-button ${editButtonStyles}`}  on:click={onClick}>Edit</button>
         {/if}
         
     </p>
     
     {:else if type === "icon"}
     
-    <div class="a">
+    <div class={`a ${isAdminStyles}`}>
         {#if isAdmin}
-        <button class="edit-button" on:click={onClick}>+</button>
+        <button class={`edit-button ${editButtonStyles} link`}  on:click={onClick}>Change&nbsp;Link</button>
         {/if}
     
-        <a style={pStyle} href={inputValue} target="_blank">
+        <a style={pStyle} class="icon" href={inputValue} target="_blank">
             <!-- {inputValue} -->
             <!--  LOGO -->
 <!-- only dont show when the inputValue is "" and there is no admin -->
@@ -168,20 +172,39 @@ if (!records) {
         height: 100%;
     }
 
+    .stretch-to-fit {
+        width: 20rem !important;
+    }
+
+    .icon svg {
+        transition:  all .2s;
+    }
+
+    .icon:hover svg {
+        transform: scale(1.1);
+    }
+
     :host {
-        width: 100%;
         /* height:; */
         display: block;
     }
 
-
+    .start-editing {
+        color: var(--gray92);
+        background-color: var(--primary) !important;
+    }
+    
+    .finish-editing {
+        color: var(--gray92);
+        background-color: var(--secondary) !important;
+    }
 
     .input-picture {
         font-size: 2.4rem;
     }
 
     .a {
-        width: 2rem;
+        width: 100%;
         height: 4.65rem;
         position: relative;
     }
@@ -196,6 +219,7 @@ if (!records) {
     }
     .relative {
         position: relative;
+        width: 100%;
     }
 
 
@@ -223,16 +247,41 @@ if (!records) {
         top: 50%;
         transform: translate(-150%, -50%);
         display: inline;
-        background-color: var(--gray80);
-        color: var(--gray22);
-        width: 30px;
-        height: 30px; 
-        border-radius: 50%;
-        border: 2px solid var(--gray22);
+        /* width: 30px; */
+        /* height: 30px;  */
+        padding: 1.2rem 2.4rem;
+        border-radius: var(--br);
+        border: 2px solid var(--gray92);
         display: flex;
         justify-content: center;
         align-items: center;
         cursor: pointer;
+        transition: all .2s;
+        box-shadow: 0 1px 1px 1px var(--gray20);
+
+    }
+
+    .edit-button:hover {
+        transform: translate(-150%, calc(-50% + -2px));
+        box-shadow: 0 2px 2px 2px var(--gray20);
+    }
+
+    .link {
+        transform: translate(-105%, -50%);
+    }
+    
+    .link:hover {
+        transform: translate(-105%, calc(-50% + -2px));
+    }
+
+    svg path {
+        fill: var(--gray22);
+    }
+
+
+    input {
+        color: var(--gray25);
+        background-color: var(--white);
     }
     
 

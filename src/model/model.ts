@@ -44,3 +44,4 @@ export const Contact = {
 }
 
 export const ContactColection = "contact"
+export const MetadataCollection = "admin-controls"

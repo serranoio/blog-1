@@ -3,6 +3,7 @@ import { Routes } from "../../model/api";
 
 import { pb } from "../../model/pocketbase";
 import {SiteName, TABS} from  "../../model/util"
+  import DarkMode from "../modules/DarkMode/DarkMode.svelte";
 
 export let position = "";
 
@@ -16,6 +17,9 @@ const logout = () => {
 <nav class={`nav ${position}`}>
     <a href="/"><h3 class="title">{SiteName}</h3></a>
     <ul class="nav-list">
+        {#if position === "horizontal"}
+        <DarkMode></DarkMode>
+        {/if}
         {#each TABS as tabList}
         {@const tab = tabList.toLowerCase()}
              <li><a href={`${tab}`}>{tabList}</a></li>
@@ -51,6 +55,9 @@ const logout = () => {
     transform: translateY(-6rem);
    }
 
+   a,button {
+    font-family: serif;
+   }
    .nav-list {
     display: flex;
     align-items: center;

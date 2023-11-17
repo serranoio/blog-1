@@ -1,76 +1,43 @@
 <script lang="ts">
     import { onMount } from "svelte";
   import Nav from "../../components/nav/Nav.svelte";
+  import { pb } from "../../model/pocketbase";
+  import { MetadataCollection } from "../../model/model";
+  import { colors, makeColorChange } from "../../model/util";
 
-  
-    export let data;
+let metadata: any;
+
+  onMount(async () => {
+    const records = await pb.collection(MetadataCollection).getFullList();
+
+    metadata = records[0];
+
+    console.log(metadata)
+
+    makeColorChange(metadata?.accents)
+  })
     
-    const colors = new Map();
-    colors.set("red", "#af575a")
-    colors.set("red-1", "#62b3b2")
-    colors.set("orange", "#ec9960")
-    colors.set("orange-1", "#006d9c")
-    colors.set("yellow", "#4fa484")
-    colors.set("yellow-1", "#f8be34")
-    colors.set("purple", "#5a4575")
-    colors.set("purple-1", "#708794")
-    colors.set("blue", "#294e70")
-    colors.set("blue-1", "#b6c75a")
-  
-    let lightModeEnabled = false;
+    const setSelectedColorInDatabase = async (color: string) => {
 
-    const toggleLightMode = () => {
-        lightModeEnabled = !lightModeEnabled;
+        const formData = new FormData()
+
+        console.log(color)
+        console.log(metadata?.id)
+
+        formData.append("accents", color);
+        formData.append("design", metadata?.design);
+        // formData.append("id", metadata?.id);
+
+        await pb.collection(MetadataCollection).update(metadata?.id, formData)
     }
-
 
     const changeSelectedColor = (e: any) => {
-
         let color = e.target.value;
-        
+        setSelectedColorInDatabase(color);
 
-
-        document.documentElement.style.setProperty("--primary", colors.get(color));
-        document.documentElement.style.setProperty("--secondary", colors.get(color + "-1"));
-
-
+        makeColorChange(color);
     }
-
-    const switchProperty = (name: string, value: string, name1: string, value1: string) => {
-        document.documentElement.style.setProperty(name, value1);
-        document.documentElement.style.setProperty(name1, value);
-    }
-
-    let properties: {name: string, value: string}[] = [];
-
-    const addToPropertyList = (name: string, value: string, name1: string, value1: string) => {
-       properties.push({
-        name: name,
-        value: value
-       })
-       properties.push({
-        name: name1,
-        value: value1
-       })
-    }
-
-    addToPropertyList("--white", "#ffffff", "--black", "#000000")
-    addToPropertyList("--gray98", "#f7f8fa", "--gray20", "#171d21")
-    addToPropertyList("--gray96", "#f2f4f5", "--gray22", "#2b3033")
-    addToPropertyList("--gray92", "#e1e6eb", "--gray25", "#313773e")
-    addToPropertyList("--gray80", "#c3cbd4", "--gray30", "#3c444d")
-    addToPropertyList("--gray60", "#818d99", "--gray45", "#5c6773")
     
-    $: if (lightModeEnabled) {
-        for (let i = 0; i < properties.length; i++) {
-            switchProperty(properties[i].name, properties[i].value, properties[properties.length-1-i].name, properties[properties.length-1-i].value)
-        }
-    } else {
-        for (let i = 0; i < properties.length; i++) {
-            switchProperty(properties[i].name, properties[properties.length-1-i].value, properties[properties.length-1-i].name, properties[i].value)
-        }
-    }
-  
   </script>
   
   <Nav position="horizontal"/>
@@ -85,31 +52,49 @@
             <label>Change your layout!</label>
             <select>
                 <option>Layout 1</option>
-                <option>Layout 2</option>
-                <option>Layout 3</option>
-                <option>Layout 4</option>
-                <option>Layout 5</option>
             </select>
         </div>
         
-        <div>
-            <label>Change Your Color Accents!</label>
-            <select on:change={changeSelectedColor}>
-                {#each Array.from(colors.keys()).filter((color, i) => i % 2 == 0) as color}
+        <div class="accent-div">
+            <div>
+                <label>Change Your Color Accents!</label>
+                <select on:change={changeSelectedColor} value={metadata?.accents}>
+                    {#each Array.from(colors.keys()).filter((color, i) => i % 2 == 0) as color}
                     <option>{color}</option>
-                {/each}
-            </select>
+                    {/each}
+                </select>
+            </div>
+
+            <div class="accent-1">Accent 1</div>
+            <div class="accent-2">Accent 2</div>
         </div>
             
 
-        <button class="light-or-dark" on:click={toggleLightMode}>
-        
-        </button>
 
     </div>
   </section>
 
-<style>      
+<style>  
+
+.accent-div {
+    display: flex;
+    gap: 2.4rem;
+    align-items: center;
+}
+.accent-1 {
+    background-color: var(--primary);
+    color: var(--gray92);
+    padding: 4.2rem;
+    font-size: 2rem;
+}
+
+.accent-2 {
+    background-color: var(--secondary);
+    color: var(--gray22);
+    padding: 4.2rem;
+    font-size: 2rem;
+}
+
 .container {
     max-width: 130rem;
     margin: 0 auto;
@@ -132,14 +117,6 @@ h2 {
     font-size: 4.2rem;
     margin-bottom: 3.2rem;
     color: var(--gray20);
-}
-
-.light-or-dark {
-    width: 5rem;
-    height: 5rem;
-    background-color: black;
-    cursor: pointer;
-    border-radius: 50%;
 }
 
 </style>

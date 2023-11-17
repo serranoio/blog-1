@@ -2,8 +2,7 @@
 
 
 <script lang="ts">
- export let isOpened;
-
+ export let isOpened: boolean;
 
 
  $: cssStyles = isOpened ? "transform: translate(0)" :  "transform: translate(100%)"

@@ -7,72 +7,84 @@
 
     $: record = records ? records[0] : undefined
 
-    $: socialsStyles = !pb.authStore.isAdmin ? `width: 25%` : `width: 100%`;
+    $: isAdmin = pb.authStore.isAdmin;
 
-    console.log(record)
+    $: socialsStyles = !isAdmin ? `width: 25%` : `width: 100%`;
 
 
+console.log(records)
+console.log(record)
 </script>
 
 
 <footer>
-    <Nav position="vertical"/>
 
+    <div class="center">
     <div class="contact-info">
         <div class="socials" style={socialsStyles}>
-            
-            <input-box
-                records={records}
-                column="twitter"
-                collection={ContactColection}
-                size="3"
-                type="icon"
-                inputValue={record?.twitter}
-            >
+           {#if  record?.twitter !== " " && record?.twitter.length > 0 || isAdmin}
+           <input-box
+           records={records}
+           column="twitter"
+           collection={ContactColection}
+           size="3"
+           type="icon"
+           inputValue={record?.twitter}
+           >
         </input-box>
-            <input-box
-                records={records}
-                column="youtube"
-                collection={ContactColection}
-                size="3"
-                type="icon"
-                inputValue={record?.youtube}
-            >
-        </input-box>
-            <input-box
-                records={records}
-                column="facebook"
-                collection={ContactColection}
-                size="3"
-                type="icon"
-                inputValue={record?.facebook}
-            >
-        </input-box>
-            <input-box
-                records={records}
-                column="instagram"
-                collection={ContactColection}
-                size="3"
-                type="icon"
-                inputValue={record?.instagram}
-            >
-        </input-box>
-            <input-box
-                records={records}
-                column="github"
-                collection={ContactColection}
-                size="3"
-                type="icon"
-                inputValue={record?.github}
-            >
-        </input-box>
+        {/if} 
+        {#if  record?.youtube !== " " && record?.youtube.length > 0 || isAdmin}
+        <input-box
+        records={records}
+        column="youtube"
+        collection={ContactColection}
+        size="3"
+        type="icon"
+        inputValue={record?.youtube}
+        >
+    </input-box>
+    {/if} 
+    {#if  record?.facebook !== " " && record?.facebook.length > 0 || isAdmin}
+    
+    <input-box
+    records={records}
+    column="facebook"
+    collection={ContactColection}
+    size="3"
+    type="icon"
+    inputValue={record?.facebook}
+    >
+</input-box>
+{/if} 
+{#if  record?.instagram !== " " && record?.instagram.length > 0 || isAdmin}
+<input-box
+records={records}
+column="instagram"
+collection={ContactColection}
+size="3"
+type="icon"
+inputValue={record?.instagram}
+>
+</input-box>
+{/if} 
+{#if  record?.github !== " " && record?.github.length > 0 || isAdmin}
+<input-box
+records={records}
+column="github"
+collection={ContactColection}
+size="3"
+type="icon"
+inputValue={record?.github}
+>
+</input-box>
+{/if} 
         </div>
 
         <input-box
             records={records}
             column="name"
             collection={ContactColection}
-            size="3"
+            size="2.4"
             type="text"
             mB="1.2"
             inputValue={record?.name}
@@ -82,14 +94,15 @@
             records={records}
             column="email"
             collection={ContactColection}
-            size="3"
+            size="2.4"
             type="text"
             mB="1.2"
             inputValue={record?.email}
         >
     </input-box>
-        <a href="/auth">login admin</a>
+        <a class="login-admin" href="/auth">Login Admin</a>
     </div>
+</div>
     <div class="sub-footer">
         <p>Made with ❤️</p>
 
@@ -102,11 +115,16 @@
             </a>
         </div>
     </div>
+
 </footer>
 
-
-
 <style>
+
+    .center {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
     .sub-footer {
         display: flex;
         align-items: center;
@@ -125,15 +143,16 @@
 
     .socials {
         display: flex;
-        gap: 2rem;
+        gap: 2.4rem;
         margin-bottom: .6rem;
         line-height: 1.5;
-        width: 25%;
+        /* width: 25%; */
+        /* justify-content: center; */
     }
 
     .contact-info a {
         text-decoration: none;
-        color: var(--gray20);
+        color: var(--gray45);
     }
 
     p {    
@@ -148,11 +167,42 @@
         /* overflow-y: hidden; */
     }
 
-
     .contact-info {
         font-size: 2.4rem;
         padding: 0 4rem;
         transform: translateY(-6rem);
+        color: var(--gray45);
     }
+
+    a {
+        font-size: 2.4rem;
+    }
+
+   .login-admin::after, .login-admin::after {
+       content: "";
+    height: 2px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: var(--secondary);
+    left: 0%;
+    transform: scaleX(0%);
+    transform-origin: left;
+    transition: all .2s;
+    color: var(--gray45);
+}
+.login-admin:hover::after  {
+    transform: scaleX(100%);
+}
+
+
+    .sub-footer, .sub-footer p {
+        color: var(--gray45);
+    }
+    .sub-footer svg path {
+        fill: var(--gray45);
+    }
+
+    
 
 </style>
