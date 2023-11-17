@@ -1,1 +1,1 @@
-export const Routes = 'http://127.0.0.1:8090/';  // Hello, World!
+export const Routes = 'https://gengster.fly.dev/';  // Hello, World!
