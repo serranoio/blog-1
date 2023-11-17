@@ -71,6 +71,8 @@ inputValue={record?.description}>
         box-sizing: border-box;
     }
 
+
+
     .accent {
         height: 450%;
         width: 500px;
@@ -132,5 +134,43 @@ inputValue={record?.description}>
        overflow-y: hidden; 
        overflow-x: hidden;
     }
+
+    @media (max-width: 94em) {
+        .container {
+            max-width: 120rem;
+        }
+    }
+    
+    @media (max-width: 85em) {  
+        .container {
+            max-width: 90rem;
+            gap: 1.2rem;
+        }
+    }
+
+    @media (max-width: 80em) {
+        html {
+            font-size: 50%;
+        }
+    }
+
+
+    @media (max-width: 74em) {
+        .container {
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr 1fr;
+            justify-content:  center;
+            align-items: center;
+            justify-items: center;
+            text-align: center;
+        }
+    }
+
+    @media (max-width: 47em) {
+        .title {
+            color: var(--secondary);
+        }
+    }
+
 
 </style>

@@ -173,4 +173,21 @@ h2 {
     .article-text-box {
         padding: 0 2.4rem;
     }
+
+@media (max-width: 47em) {
+
+    h2 {
+        text-align: center;
+    }
+    
+    .title-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .grid {
+        grid-template-columns: 1fr !important;
+    }
+}
 </style>

@@ -306,4 +306,36 @@ form {
     max-width: 130rem;
     margin: 0 auto;
 }
+
+
+@media (max-width: 60em) {
+    #editorjs {
+        width: calc(100vw - 8rem);
+        height: 50rem;
+
+    }
+
+    .close {
+        transform: translate(0);
+        left: 88%;
+        top: 4%;
+        -webkit-clip-path: none;
+    clip-path: none;
+    background-color: var(--gray45);
+    color: var(--gray20);
+    border-radius: 50%;
+        width: 4rem;
+        height: 4rem;
+    }
+
+
+.close span {
+    color: var(--gray60);
+    position: absolute;
+    right: 50%;
+    top: 50%;
+    transform: translate(50%, -50%);
+    /* transform: translateX(80px); */
+}
+}
 </style>

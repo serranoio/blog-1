@@ -100,6 +100,8 @@ if (!records) {
 
     $: editButtonStyles = !isEditing ? "start-editing" : "finish-editing"
 
+
+    $: isFileTypeClass = type === "file" ? "is-file" : "";
 </script>
 
 {#if isEditing}
@@ -114,7 +116,7 @@ if (!records) {
 {:else}
 
     {#if type === "file"}
-    <div class="relative">
+    <div class={`relative ${isFileTypeClass}`}>
             {#if inputValue === ""}
                 <p class="input-picture">Please input a picture!</p>
             {:else}
@@ -167,14 +169,16 @@ if (!records) {
 
 <style>
     .pic {
-        width: 100%;
+        max-width: 75%;
         /* background-color: green; */
-        height: 100%;
+        max-height: 100%;
     }
 
     .stretch-to-fit {
         width: 20rem !important;
     }
+
+
 
     .icon svg {
         transition:  all .2s;
@@ -240,6 +244,20 @@ if (!records) {
         cursor: pointer;
         padding: 1.2rem 2.4rem;
     }
+
+    .stretch-to-fit .edit-button {
+        transform: translate(-50%, -50%) !important;
+    }
+    
+    .stretch-to-fit .edit-button.finish-editing {
+        transform: translate(-100%, -50%) !important;
+        
+    }
+    
+    .is-file .edit-button {
+        /* '' */
+        transform: translate(-40%, -50%) !important;
+    }
     
     .edit-button {
         position: absolute;
@@ -284,6 +302,18 @@ if (!records) {
         background-color: var(--white);
     }
     
+
+    @media (max-width: 47em) {
+        .edit-button {
+            transform: translate(-75%, -50%) !important;
+        }
+        
+        .is-file .edit-button {
+            transform: translate(0%, -50%) !important;
+            
+        }
+    }
+
 
 </style>
 

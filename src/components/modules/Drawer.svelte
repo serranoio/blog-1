@@ -44,5 +44,12 @@
     height: 100%;
 }
 
+@media (max-width: 60em) {
+    .drawer {
+        width: 100vw;
+
+    }
+}
+
   
 </style>

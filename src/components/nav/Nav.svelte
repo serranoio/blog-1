@@ -96,6 +96,11 @@ const logout = () => {
     transform: scaleX(100%);
 }
 
+@media (max-width: 47em) {
+    a, button {
+        font-size: 2.4rem !important;
+    }
+}
 
 
 
