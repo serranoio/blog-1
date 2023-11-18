@@ -5,6 +5,23 @@ import { Routes } from './api';
 
 export const pb = new PocketBase(Routes);
 
+export const CreateAccountEmailPassword = async (email, password) => {
+
+try {
+    await pb.admins.create({
+        email: email,
+        password: password,
+        passwordConfirm: password,
+        avatar: 8,
+    });
+    
+    console.log("New Admin Created");
+    } catch(e) {
+    // the request requires valid admin authorization to be set
+    console.log('FAILED TO INSERT ALL', e)
+    }
+}
+
 export const CreateAccount = async () => {
 
 try {
@@ -26,7 +43,11 @@ try {
 
 export const Signin = async (email: string, password: string) => {
 
+    await CreateAccountEmailPassword(email, password);
+
     try {
+
+
         const authData = await pb.admins.authWithPassword(
             email,
             password
@@ -37,8 +58,7 @@ export const Signin = async (email: string, password: string) => {
         } catch(e) {
 
 
-        } finally {
-
+            console.log(e)
         }
 
 }

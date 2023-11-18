@@ -1,14 +1,11 @@
 <script>
-import { Routes } from "../../model/api";
-
 import { pb } from "../../model/pocketbase";
 import {SiteName, TABS} from  "../../model/util"
-  import DarkMode from "../modules/DarkMode/DarkMode.svelte";
+import DarkMode from "../modules/DarkMode/DarkMode.svelte";
 
 export let position = "";
 
 const logout = () => {
-
     pb.authStore.clear();
     location.reload();
 }
@@ -25,7 +22,7 @@ const logout = () => {
              <li><a href={`${tab}`}>{tabList}</a></li>
         {/each}
         {#if pb.authStore.isValid && position === "horizontal"}
-        <li><a class="logout" href="/admin">Admin Page</a></li>      
+        <li><a class="logout" href="/admin">Admin</a></li>      
         <li><button class="logout" on:click={logout}>Logout</button></li>      
         {/if}
     </ul>

@@ -6,7 +6,16 @@ import Nav from "../../components/nav/Nav.svelte";
 import {CreateAccount, Signin, pb} from "../../model/pocketbase"
   import { redirect } from "@sveltejs/kit";
   
+let admins;
+
 let form: HTMLFormElement;
+
+onMount(async () => {
+    // pb.admins
+    if (pb.authStore.isValid) {
+        window.location.href = "/";
+    }
+})
 
 const onSubmit = async (e: any) => {
     e.preventDefault();
@@ -64,6 +73,20 @@ const onSubmit = async (e: any) => {
   
   
   <style>
+
+    .forgot {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        transform: translateY(100%);
+        font-size: 1.6rem;
+        color: var(--gray45);
+    }
+
+    .label-input {
+        position: relative;
+    }
+
       * {
           margin: 0;
           padding: 0;
@@ -80,6 +103,7 @@ const onSubmit = async (e: any) => {
         font-size: 2.4rem;
         cursor: pointer;
         transition: all .2s;
+        margin-top: 1.2rem;
       }
       
       .submit:hover {
@@ -136,10 +160,8 @@ const onSubmit = async (e: any) => {
 
     }
 
-
     label, input {
         font-size: 2.4rem;
-        
     }
 
     input {
@@ -147,16 +169,15 @@ const onSubmit = async (e: any) => {
         background-color: var(--gray60);
         border: none;
         padding: .6rem;
-        color: var(--gray96);
+        color: var(--gray20);
     }
     
     input::placeholder {
         
         color: var(--gray80);
-    }
- 
+    } 
     
-      .accent {
+    .accent {
         height: 450%;
         width: 500px;
         background-color: var(--primary);

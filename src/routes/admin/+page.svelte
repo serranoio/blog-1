@@ -9,20 +9,13 @@ let metadata: any;
 
   onMount(async () => {
     const records = await pb.collection(MetadataCollection).getFullList();
-
     metadata = records[0];
-
-    console.log(metadata)
 
     makeColorChange(metadata?.accents)
   })
     
     const setSelectedColorInDatabase = async (color: string) => {
-
         const formData = new FormData()
-
-        console.log(color)
-        console.log(metadata?.id)
 
         formData.append("accents", color);
         formData.append("design", metadata?.design);
@@ -37,6 +30,9 @@ let metadata: any;
 
         makeColorChange(color);
     }
+
+
+    console.log(pb.admins)
     
   </script>
   
@@ -64,17 +60,26 @@ let metadata: any;
                     {/each}
                 </select>
             </div>
-
+            <div>
+            </div>
             <div class="accent-1">Accent 1</div>
             <div class="accent-2">Accent 2</div>
         </div>
-            
-
-
+        <a class="forgot" href="/auth/change">Change Your Password</a>
     </div>
   </section>
 
 <style>  
+
+.forgot {
+        /* position: absolute; */
+        /* right: 0; */
+        /* bottom: 0; */
+        /* transform: translateY(100%); */
+        font-size: 1.6rem;
+        color: var(--gray45);  
+}
+
 
 .accent-div {
     display: flex;
