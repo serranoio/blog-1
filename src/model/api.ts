@@ -1,1 +1,1 @@
-export const Routes = 'https://david-is-cool.fly.dev/';  // Hello, World!
+export const Routes = 'https://dezaro.fly.dev/';  // Hello, World!
