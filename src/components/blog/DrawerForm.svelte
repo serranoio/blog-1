@@ -262,6 +262,7 @@ input {
     overflow: auto;
     overflow-x: hidden;
     width: calc(50vw - 8rem);
+    color: var(--gray22);
 }
 
 
@@ -273,6 +274,8 @@ input {
     padding: 1.2rem 2.4rem;
     font-size: 2rem;
     cursor: pointer;
+    width: 100%;
+    border-radius: var(--br);
 }
 
 
@@ -307,11 +310,17 @@ form {
     margin: 0 auto;
 }
 
+@media (max-width: 60em) {
+    
+}
 
 @media (max-width: 60em) {
+    .label-box-grid {
+        grid-template-columns: 1fr;
+    }
     #editorjs {
         width: calc(100vw - 8rem);
-        height: 50rem;
+        height: 43rem;
 
     }
 

@@ -43,7 +43,11 @@ $: gridColumns = posts.length >= 6 ? `${gtc} repeat(6, 1fr)` : `${gtc} repeat(${
             {/if}
         </div>
         {#if posts.length === 0}
+            {#if pb.authStore.isValid}
             <p>Create&nbsp;your&nbsp;first&nbsp;post!</p>
+            {:else}
+            <p>No posts have been made yet!</p>
+            {/if}
         {/if}
         <navigation class="grid" style={gridColumns}>
 
@@ -179,7 +183,7 @@ h2 {
     h2 {
         text-align: center;
     }
-    
+
     .title-section {
         display: flex;
         flex-direction: column;

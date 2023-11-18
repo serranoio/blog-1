@@ -24,6 +24,7 @@ export let type = "button";
     padding: 1.2rem 2.4rem;
     font-size: 2rem;
     cursor: pointer;
+    border-radius: var(--br);
 }
 
     * {

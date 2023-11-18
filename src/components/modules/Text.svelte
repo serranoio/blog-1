@@ -309,7 +309,8 @@ if (!records) {
         }
         
         .is-file .edit-button {
-            transform: translate(0%, -50%) !important;
+            transform: translate(-50%, -50%) !important;
+            left: 50%;
             
         }
     }
