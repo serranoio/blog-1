@@ -11,7 +11,6 @@ let isOpened = false;
 
 function switchOpen() {
     isOpened = !isOpened;
-    console.log(isOpened)
 }
 
 onMount(async () => {
@@ -20,8 +19,6 @@ onMount(async () => {
         posts = await pb.collection('blog').getFullList({
             sort: '-created',
         });
-        console.log(posts)
-        // console.log(records)
     } catch (err) {
         console.log(err)
     }

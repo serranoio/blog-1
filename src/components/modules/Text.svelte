@@ -64,10 +64,7 @@ if (!records) {
             if (type === "file") {
                 inputValue = updated.pic
             }
-            console.log("updated text")
         } catch(err) {
-            
-            // console.log("updated text")
             console.log("Could not update text", err)
         }
     }

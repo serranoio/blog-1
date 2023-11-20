@@ -36,7 +36,6 @@
                 if (admin) {
                     changed = "Success"
                 }
-                console.log(admin)
                 
             } catch(e) {
                 console.log("COULD NOT CHANGE", e)
@@ -51,7 +50,7 @@
 
     </script>
     
-    <Nav/>
+    <Nav auth="true"/>
     <section class="hero-section">
     <div class="container">
           <form bind:this="{form}" class="auth-form">

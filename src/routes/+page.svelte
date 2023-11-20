@@ -19,11 +19,6 @@
     const records = await pb.collection(MetadataCollection).getFullList();
     metadata = records[0];
     makeColorChange(metadata?.accents)
-  
-
-    console.log(contact)
-    console.log(hero)
-    // fetchAll()
   })
   
 

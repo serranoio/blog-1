@@ -33,7 +33,6 @@ const onSubmit = async (e: any) => {
     } finally {
 
         if (result) {
-            // console.log("redirect")
             window.location.replace("/")
         }
     }

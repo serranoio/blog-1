@@ -119,7 +119,7 @@ $: show = isOpened ? "display: block;" : "display: none";
     <button class='close' style={show} on:click={() => {isOpened = !isOpened}}><span>x</span></button>
     <form on:submit={onSubmit}>
     <h3 class="create-post-title">Create a post!</h3>
-    <p class="create-post-desc">Requirements: title, date, author, content</p>
+    <p class="create-post-desc">You must fill them all in to create a post!</p>
 
 <div class="label-box-grid">
 

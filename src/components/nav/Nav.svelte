@@ -5,10 +5,13 @@ import DarkMode from "../modules/DarkMode/DarkMode.svelte";
 
 export let position = "";
 
+export let auth = false;
+
 const logout = () => {
     pb.authStore.clear();
     location.reload();
 }
+
 </script>
 
 <nav class={`nav ${position}`}>
@@ -17,10 +20,14 @@ const logout = () => {
         {#if position === "horizontal"}
         <DarkMode></DarkMode>
         {/if}
-        {#each TABS as tabList}
-        {@const tab = tabList.toLowerCase()}
-             <li><a href={`${tab}`}>{tabList}</a></li>
-        {/each}
+
+        {#if !Boolean(auth)}
+            {#each TABS as tabList}
+            {@const tab = tabList.toLowerCase()}
+            <li><a href={`${tab}`}>{tabList}</a></li>
+            {/each}
+        {/if}
+
         {#if pb.authStore.isValid && position === "horizontal"}
         <li><a class="logout" href="/admin">Admin</a></li>      
         <li><button class="logout" on:click={logout}>Logout</button></li>      

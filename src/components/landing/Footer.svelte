@@ -13,9 +13,6 @@
     $: socialsStyles = !isAdmin ? `width: 25%` : `width: 100%`;
 
     $: isAdminClass = isAdmin ? "admin-class" : "";
-
-console.log(records)
-console.log(record)
 </script>
 
 

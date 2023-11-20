@@ -5,7 +5,7 @@ import { Routes } from './api';
 
 export const pb = new PocketBase(Routes);
 
-export const CreateAccountEmailPassword = async (email, password) => {
+export const CreateAccountEmailPassword = async (email: string, password: string) => {
 
 try {
     await pb.admins.create({

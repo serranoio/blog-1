@@ -8,7 +8,6 @@ export let records: any;
 
 $: record = records ? records[0] : undefined;
 
-console.log(record)
 </script>
 
 <section class="hero-section">
