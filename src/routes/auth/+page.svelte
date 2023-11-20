@@ -58,7 +58,7 @@ const onSubmit = async (e: any) => {
             </div>
             <div class="label-input">
                 <label for="password">Password</label>
-                <input name="password" type="text" placeholder="Username"/>
+                <input name="password" type="text" placeholder="password"/>
             </div>
             <button class="submit" type="submit" on:click={onSubmit}>Submit</button>
         </form>  
