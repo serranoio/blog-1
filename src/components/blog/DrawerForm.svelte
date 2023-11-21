@@ -186,8 +186,8 @@ $: show = isOpened ? "display: block;" : "display: none";
 
 #editorjs-container {
     /* overflow-y: scroll; */
-    height: 100%;
-    overflow-y: scroll;
+    /* height: 100%; */
+    /* overflow-y: scroll; */
     /* flex-shrink: 0; */
 }
 
@@ -325,14 +325,27 @@ form {
     margin: 0 auto;
 }
 
+#editorjs-container {
+    flex-shrink: 1;
+    /* flex-grow: 1; */
+    max-height: 23vh;
+    /* max-height: unset; */
+}
+
+@media (max-height: 55em) {
+    form {
+        overflow-y: scroll;
+    }
+}
+
 @media (max-width: 80em) {
     .label-box-grid {
         grid-template-columns: 1fr;
     }
     #editorjs-container {
-        flex-shrink: 1;
+        /* flex-shrink: 1; */
         /* flex-grow: 1; */
-        max-height: 22rem;
+        /* max-height: 2vh; */
         /* max-height: unset; */
     }
     #editorjs {
@@ -350,7 +363,6 @@ form {
 
 @media (max-width: 60em) {
     #editorjs-container {
-        /* height: auto; */
         flex-shrink: 0;
         flex: 1;
     }
@@ -390,13 +402,6 @@ form {
 
     .label-box.editor label {
         flex-grow: 0;
-    }
-    #editorjs-container {
-        /* height: auto; */
-        /* flex-shrink: 0; */
-        /* flex: 1; */
-        max-height: unset;
-        flex-grow: 1;
     }
 
 }
