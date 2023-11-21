@@ -187,7 +187,7 @@ $: show = isOpened ? "display: block;" : "display: none";
 #editorjs-container {
     /* overflow-y: scroll; */
     height: 100%;
-    overflow-y: hidden;
+    overflow-y: scroll;
     /* flex-shrink: 0; */
 }
 
