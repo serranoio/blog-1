@@ -160,16 +160,19 @@ $: show = isOpened ? "display: block;" : "display: none";
     </div>
 </div>
 
-    <div class="label-box">
+
+
+    <div class="label-box editor">
         <label>Content</label>
         <div id="editorjs-container">
             <div id="editorjs"></div>
         </div>
     </div>
-
-
-
+    
+    
+    
     <button class="button-styles" type="submit">Submit</button>
+
 </form>
 
 
@@ -180,11 +183,17 @@ $: show = isOpened ? "display: block;" : "display: none";
 <style>
 
 
+
 #editorjs-container {
     /* overflow-y: scroll; */
     height: 100%;
     overflow-y: hidden;
     /* flex-shrink: 0; */
+}
+
+
+.label-box.editor {
+    flex: 1;
 }
 
 .label-box-grid {
@@ -256,8 +265,10 @@ input {
 }
 
 #editorjs {
-    /* height: 100%;  */
-    height:  44rem;
+    height: auto; 
+    height: 100%; 
+    /* height: 20rem;  */
+    /* max-height: 44rem; */
     border: 1px solid var(--gray80);
     overflow: auto;
     overflow-x: hidden;
@@ -276,11 +287,15 @@ input {
     cursor: pointer;
     width: 100%;
     border-radius: var(--br);
+    /* position: absolute; */
 }
 
 
 form {
     height: 100%;
+    display: flex;
+    flex-direction: column;
+
     /* display: grid; */
     /* grid-template-rows: 1fr 1fr 1fr 1fr 1fr 11fr  1fr; */
 }
@@ -310,20 +325,40 @@ form {
     margin: 0 auto;
 }
 
-@media (max-width: 60em) {
+@media (max-width: 80em) {
+    .label-box-grid {
+        grid-template-columns: 1fr;
+    }
+    #editorjs-container {
+        flex-shrink: 1;
+        /* flex-grow: 1; */
+        max-height: 22rem;
+        /* max-height: unset; */
+    }
+    #editorjs {
+        /* width: calc(100vw - 8rem); */
+        /* max-height: 38rem; */
+        /* max-height: 25rem; */
+        height: 100%;
+        flex-shrink: 1;
+    }
+    .label-box.editor {
+        
+    }
     
 }
 
 @media (max-width: 60em) {
-    .label-box-grid {
-        grid-template-columns: 1fr;
+    #editorjs-container {
+        /* height: auto; */
+        flex-shrink: 0;
+        flex: 1;
     }
+
     #editorjs {
         width: calc(100vw - 8rem);
-        height: 43rem;
 
     }
-
     .close {
         transform: translate(0);
         left: 88%;
@@ -347,4 +382,23 @@ form {
     /* transform: translateX(80px); */
 }
 }
+
+
+
+@media (max-width: 47em) {
+
+
+    .label-box.editor label {
+        flex-grow: 0;
+    }
+    #editorjs-container {
+        /* height: auto; */
+        /* flex-shrink: 0; */
+        /* flex: 1; */
+        max-height: unset;
+        flex-grow: 1;
+    }
+
+}
+
 </style>
